@@ -27,12 +27,6 @@ public class User {
     @Column(name = "preferred_phone_number")
     private String preferredPhoneNumber;
 
-//    todo
-//    @Column(name = "phones_owned")
-//    @OneToMany(mappedBy="User") // https://www.baeldung.com/hibernate-one-to-many
-//    private Set<Phone> phonesOwned;
-
-
     public UUID getUserId() {
         return userId;
     }

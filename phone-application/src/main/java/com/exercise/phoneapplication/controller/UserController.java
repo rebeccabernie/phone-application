@@ -34,13 +34,13 @@ public class UserController {
     }
 
     @GetMapping(path = "/{userId}")
-    public ResponseEntity<?> getUserById(@PathVariable("userId") UUID uuid) {
-        boolean userExists = userRepository.existsById(uuid);
-        if (userExists){
+    public ResponseEntity<User> getUserById(@PathVariable("userId") UUID uuid) {
+        Optional<User> user = userRepository.findById(uuid);
+        if (user.isPresent()){
             logger.info("Getting details of user {}...", uuid);
-            return new ResponseEntity<>(userRepository.findById(uuid), HttpStatus.OK);
+            return new ResponseEntity<>(user.get(), HttpStatus.OK);
         } else {
-            logger.info(NOT_FOUND, uuid);
+            logger.info("User with ID {} could not be found.", uuid);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @PutMapping("/{uuid}")
-    public ResponseEntity<?> updateUserPhoneNumber(@PathVariable UUID uuid,
+    public ResponseEntity<User> updateUserPhoneNumber(@PathVariable UUID uuid,
                                                    @RequestParam(name="preferredPhoneNumber") String phoneNumber) {
         logger.info("Received request to update phone number of user {} to {}", uuid, phoneNumber);
         Optional<User> possibleUser = userRepository.findById(uuid);
@@ -67,7 +67,7 @@ public class UserController {
     }
 
     @DeleteMapping(value = "{uuid}")
-    public ResponseEntity<String> deleteUserById(@PathVariable UUID uuid) {
+    public ResponseEntity deleteUserById(@PathVariable UUID uuid) {
         logger.info("Received request to delete user {}", uuid);
         userRepository.deleteById(uuid);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

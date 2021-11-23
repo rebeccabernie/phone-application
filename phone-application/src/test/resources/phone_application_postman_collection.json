@@ -1,0 +1,251 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Phone Application",
+		"_postman_id": "2702a47a-4c54-9c1d-0340-d21056f0e7d0",
+		"description": "A basic user - phone management system.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"userId_0\", jsonData.userId);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/api/v1/users",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"userName\":\"john_user\",\r\n\t\"password\":\"testing123\",\r\n\t\"emailAddress\":\"john@example.com\",\r\n\t\"preferredPhoneNumber\":\"+353881234567\"\r\n}"
+				},
+				"description": "Adds a user to the database."
+			},
+			"response": []
+		},
+		{
+			"name": "Add Second User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"userId_1\", jsonData.userId);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/api/v1/users",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"userName\":\"rebecca_test\",\r\n\t\"password\":\"pass123\",\r\n\t\"emailAddress\":\"reb@example.com\",\r\n\t\"preferredPhoneNumber\":\"0891234567\"\r\n}"
+				},
+				"description": "Adds a user to the database."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"userId_0\", jsonData[0].userId);",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"userId_1\", jsonData[1].userId);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/api/v1/users",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Gets all users."
+			},
+			"response": []
+		},
+		{
+			"name": "Get User by ID",
+			"request": {
+				"url": "http://localhost:8080/api/v1/users/{{userId_0}}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Gets all users."
+			},
+			"response": []
+		},
+		{
+			"name": "Update User's Phone Number",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8080/api/v1/users/{{userId_0}}?preferredPhoneNumber=0890000000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"{{userId_0}}"
+					],
+					"query": [
+						{
+							"key": "preferredPhoneNumber",
+							"value": "0890000000",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User by ID",
+			"request": {
+				"url": "http://localhost:8080/api/v1/users/{{userId_0}}",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Phone",
+			"request": {
+				"url": "http://localhost:8080/api/v1/phones",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"phoneName\":\"John's Pixel\",\r\n\t\"phoneModel\":\"ANDROID\",\r\n\t\"phoneNumber\":\"+353881234567\",\r\n\t\"belongsToUser\": \"{{userId_1}}\"\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Second Phone",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"phoneId\", jsonData.phoneId);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/api/v1/phones",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"phoneName\":\"John's iPhone\",\r\n\t\"phoneModel\":\"IPHONE\",\r\n\t\"phoneNumber\": \"0852222222\",\r\n\t\"belongsToUser\": \"{{userId_1}}\"\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get User's Phones",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8080/api/v1/phones?belongsToUser={{userId_1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"phones"
+					],
+					"query": [
+						{
+							"key": "belongsToUser",
+							"value": "{{userId_1}}\n",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Phone",
+			"request": {
+				"url": "http://localhost:8080/api/v1/phones/{{phoneId}}",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

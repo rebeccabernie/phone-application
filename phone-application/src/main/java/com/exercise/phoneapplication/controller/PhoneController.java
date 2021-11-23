@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -30,11 +31,11 @@ public class PhoneController {
     }
 
     @GetMapping(path = "/{phoneId}")
-    public ResponseEntity<String> getPhoneById(@PathVariable("phoneId") UUID uuid) {
-        boolean userExists = phoneRepository.existsById(uuid);
-        if (userExists){
+    public ResponseEntity<Phone> getPhoneById(@PathVariable("phoneId") UUID uuid) {
+        Optional<Phone> phone = phoneRepository.findById(uuid);
+        if (phone.isPresent()){
             logger.info("Getting details of phone {}...", uuid);
-            return new ResponseEntity<>(phoneRepository.findById(uuid).toString(), HttpStatus.OK);
+            return new ResponseEntity<>(phone.get(), HttpStatus.OK);
         } else {
             logger.info("Phone with ID {} could not be found.", uuid);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -48,7 +49,7 @@ public class PhoneController {
     }
 
     @GetMapping()
-    public ResponseEntity<?> getPhonesBelongingToUser(@RequestParam("belongsToUser") UUID uuid) {
+    public ResponseEntity<List<Phone>> getPhonesBelongingToUser(@RequestParam("belongsToUser") UUID uuid) {
         boolean userExists = userRepository.existsById(uuid);
         if (userExists){
             logger.info("Getting list of phones belonging to user {}...", uuid);
@@ -63,7 +64,7 @@ public class PhoneController {
     }
 
     @DeleteMapping(value = "/{uuid}")
-    public ResponseEntity<String> deletePhoneById(@PathVariable UUID uuid) {
+    public ResponseEntity deletePhoneById(@PathVariable UUID uuid) {
         logger.info("Received request to delete phone {}", uuid);
         phoneRepository.deleteById(uuid);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
