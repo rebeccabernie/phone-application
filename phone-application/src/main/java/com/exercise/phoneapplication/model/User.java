@@ -67,12 +67,18 @@ public class User {
 
     public void setPreferredPhoneNumber(String preferredPhoneNumber) {
         this.preferredPhoneNumber = preferredPhoneNumber;
+
+
     }
 
     @Override
     public String toString() {
-        return "Details of user " + userId + ":\n" +
-                "user name: '" + userName + "', password: '" + getPassword() + "', " +
-                "emailAddress: '" + emailAddress + "', preferredPhoneNumber: '" + preferredPhoneNumber + "'";
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", password='" + getPassword() + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", preferredPhoneNumber='" + preferredPhoneNumber + '\'' +
+                '}';
     }
 }
