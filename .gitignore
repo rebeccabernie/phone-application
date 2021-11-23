@@ -1,0 +1,13 @@
+# Java
+*.class
+
+# Maven
+**/target
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Project Brief
+*.pdf
