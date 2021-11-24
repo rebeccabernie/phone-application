@@ -7,7 +7,7 @@ Prerequisites:
 * Docker is installed on the machine you want to run the application on.
 
 1. Save the contents of the *src\main\docker* directory to your machine.
-2. Run `docker-compose up`
+2. In the same folder as the three files (the Dockerfile, docker-compose.yml and the project jar file), run `docker-compose up`.
 
 You can also clone this repository and from the phone-application project root *(i.e. phone-application/phone-application, where the first is the repo and the second is the project)*, run `mvn clean install -DskipTests && cp target/*.jar src/main/docker/ && cd src/main/docker/ && docker-compose up`.
 
