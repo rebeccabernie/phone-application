@@ -2,9 +2,14 @@
 A basic user / phone management system, built with Java 11 and the Spring Framework.
 
 ### Running the Application
-From the project root run:
 
-`mvn clean install -DskipTests && cp target/*.jar src/main/docker/ && cd src/main/docker/ && docker-compose up --force-recreate`
+Prerequisites:
+* Docker is installed on the machine you want to run the application on.
+
+1. Save the contents of the *src\main\docker* directory to your machine.
+2. Run `docker-compose up`
+
+You can also clone this repository and from the phone-application project root *(i.e. phone-application/phone-application, where the first is the repo and the second is the project)*, run `mvn clean install -DskipTests && cp target/*.jar src/main/docker/ && cd src/main/docker/ && docker-compose up`.
 
 This will clean and build the project into a jar, copy the jar to the src/main/docker directory, and start the database and application.
 
@@ -61,7 +66,9 @@ Some screenshots below:
 For my own reference:
 
 *Remove containers: docker rm -f $(docker ps -a -q)*
+
 *Remove image: docker rmi phone-application*
+
 *Remove volumes: docker volume prune*
 
 `cd ../../../ && mvn clean install -DskipTests && cp target/*.jar src/main/docker/ && cd src/main/docker/ && docker-compose up --force-recreate`
@@ -77,3 +84,9 @@ For my own reference:
 https://www.baeldung.com/spring-boot-postgresql-docker
 
 https://www.baeldung.com/spring-data-partial-update
+
+https://github.com/testcontainers/testcontainers-java/blob/master/modules/postgresql/src/test/java/org/testcontainers/junit/postgresql/SimplePostgreSQLTest.java
+
+https://www.testcontainers.org/modules/databases/jdbc/
+
+https://cloud.spring.io/spring-cloud-static/spring-cloud-contract/1.2.1.RELEASE/multi/multi__spring_cloud_contract_faq.html < for consumer/producer to handle UUID
